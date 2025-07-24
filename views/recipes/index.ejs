@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Recipe Tracker</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    .img-card {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .welcome-text {
+      text-align: center;
+      margin-top: 40px;
+      margin-bottom: 40px;
+      font-size: 2rem;
+      font-weight: bold;
+      color: #333;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Food Log</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+        <% if (currentUser) { %>
+        <span class="navbar-text me-3">Hello, <%= currentUser.username %>!</span>
+<a href="/auth/logout" class="btn btn-outline-light me-2">Logout</a>
+
+        
+        <% } else { %>
+          <a href="/auth/login" class="btn btn-outline-light me-2">Login</a>
+          <a href="/auth/signup" class="btn btn-outline-light">Sign Up</a>
+        <% } %>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Welcome Message -->
+  <div class="welcome-text">Welcome to Food Log</div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row justify-content-center g-5">
+
+      <!-- Add Recipe -->
+      <div class="col-md-5 text-center">
+        <img src="/images/top-view-recipe-book-still-life-concept.jpg" alt="Add Recipe" class="img-card mb-3">
+        <a href="/recipes/new" class="btn btn-success w-100">Add Recipe</a>
+      </div>
+
+      <!-- View Recipes -->
+      <div class="col-md-5 text-center">
+        <img src="/images/nutrition-facts-fresh-vegetable-digital-tablet.jpg" alt="View Recipes" class="img-card mb-3">
+        <a href="/recipes/show" class="btn btn-primary w-100">View My Recipes</a>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

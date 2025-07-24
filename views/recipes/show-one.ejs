@@ -1,0 +1,71 @@
+<%- include('../partials/head') %>
+
+<div class="container mt-5" style="max-width: 800px;">
+  <h1 class="text-center mb-4"><%= recipe.title %></h1>
+
+  <% if (recipe.image && recipe.image.url) { %>
+    <img src="<%= recipe.image.url %>" alt="Image of <%= recipe.title %>" class="img-fluid rounded mb-4" />
+  <% } %>
+
+  <p><strong>Description:</strong></p>
+  <p class="lead"><%= recipe.description %></p>
+
+  <hr>
+
+  <p><strong>Ingredients:</strong></p>
+  <p><%= recipe.ingredients %></p>
+
+  <hr>
+
+  <p><strong>Instructions:</strong></p>
+  <p><%= recipe.instructions %></p>
+
+  <hr>
+
+  <% if (recipe.author) { %>
+    <p><strong>Created by:</strong> <%= recipe.author.email || recipe.author.username %></p>
+  <% } %>
+
+  <div class="mt-4 d-flex justify-content-between">
+    <a href="/recipes/<%= recipe._id %>/edit" class="btn btn-warning">Edit</a>
+
+    <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST" onsubmit="return confirm('Are you sure you want to delete this recipe?');">
+      <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+  </div>
+
+  <hr class="my-4">
+
+
+
+  <h4 class="mb-3">Comments</h4>
+
+  <% if (recipe.comments.length === 0) { %>
+    <p>No comments yet.</p>
+  <% } else { %>
+    <ul class="list-group mb-4">
+      <% recipe.comments.forEach(comment => { %>
+        <li class="list-group-item">
+          <strong><%= comment.author?.email || 'Anonymous' %>:</strong> <%= comment.content %>
+          <br>
+          <small class="text-muted"><%= comment.createdAt.toLocaleDateString() %></small>
+        </li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <% if (currentUser) { %>
+    <form action="/recipes/<%= recipe._id %>/comments" method="POST">
+      <div class="mb-3">
+        <label for="content" class="form-label">Add a comment:</label>
+        <textarea name="content" id="content" class="form-control" rows="2" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary">Post Comment</button>
+    </form>
+  <% } else { %>
+    <p><a href="/auth/login">Login</a> to add a comment.</p>
+  <% } %>
+
+</div>
+</body>
+</html>
